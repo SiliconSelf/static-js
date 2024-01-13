@@ -1,13 +1,13 @@
 <html lang="en-US">
     <head>
-        <% include!("./meta.stpl"); %>
+        <% include!("./partials/meta.stpl"); %>
         <link href="./output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.css"
     integrity="sha512-LaxQmGd9k/pW51CsEy2nLIlbUXCgsyvUEVT5fSguN2b2OBwHjMi2aiUdEEXSMg8Jvy+bCB01as61aNrHnL2DYQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body class="bg-neutral-950 font-fira">
-        <% include!("./navbar.stpl"); %>
+        <% include!("./partials/navbar.stpl"); %>
           <section class="mb-24 mx-auto max-w-screen-xl">
     <div class="py-8 px-4 text-center lg:py-16">
       <h1
@@ -47,6 +47,6 @@
         <% } %>
     </div>
   </section>
-  <% include!("./footer.stpl"); %>
+  <% include!("./partials/footer.stpl"); %>
   </body>
 </html>

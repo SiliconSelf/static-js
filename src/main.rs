@@ -2,48 +2,12 @@
 
 use std::{time::{SystemTime, Duration}, io::Write, ffi::OsStr};
 
-use log::{info};
+use log::info;
 use sailfish::TemplateOnce;
-use serde::Deserialize;
 
-#[derive(TemplateOnce, Deserialize)]
-#[template(path = "index.stpl")]
-struct IndexTemplate {
-    meta: MetaTemplate,
-    navbar: NavbarTemplate,
-    claims: Vec<Claim>
-}
+use crate::templates::index::IndexTemplate;
 
-#[derive(Deserialize)]
-struct Claim {
-    title: String,
-    description: String
-}
-
-#[derive(Deserialize)]
-struct Url {
-    url: String,
-    title: String
-}
-
-#[derive(Deserialize)]
-
-struct MetaTemplate {
-    title: String
-}
-
-#[derive(Deserialize)]
-struct NavbarTemplate {
-    links: Vec<Url>
-}
-
-#[derive(Deserialize)]
-struct HeroTemplate {
-    headline: String,
-    subtitle: String,
-
-}
-
+mod templates;
 
 #[tokio::main]
 async fn main() {
