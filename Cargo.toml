@@ -4,6 +4,11 @@ description = "A simple static site generator built on Sailfish"
 version = "0.1.0"
 edition = "2021"
 
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = 3
 
 [workspace.lints.rust]
 missing_abi = "warn"
@@ -50,4 +55,10 @@ wildcard_dependencies = "warn"
 workspace = true
 
 [dependencies]
+log = "0.4.20"
 sailfish = "0.8.3"
+serde = { version = "1.0.195", features = ["derive"] }
+simple_logger = "4.3.3"
+tokio = { version = "1.35.1", features = ["full"] }
+toml = "0.8.8"
+walkdir = "2.4.0"

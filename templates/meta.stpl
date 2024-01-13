@@ -1,0 +1,18 @@
+<!-- Primary Meta Tags -->
+<title>Static.js - <%= meta.title %></title>
+<meta name="title" content="Static.js - <%= meta.title %>" />
+<meta name="description" content="The web's fastest framework" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://siliconself.github.io" />
+<meta property="og:title" content="Static.js - <%= meta.title %>" />
+<meta property="og:description" content="The web's fastest framework" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://siliconself.github.io/" />
+<meta property="twitter:title" content="Static.js - <%= meta.title %>" />
+<meta property="twitter:description" content="The web's fastest framework" />
+
+<!-- Meta Tags Generated with https://metatags.io -->
