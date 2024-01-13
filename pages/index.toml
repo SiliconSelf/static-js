@@ -1,10 +1,22 @@
 [meta]
 title = "Home"
 
-[navbar.links]
-Home = "/"
+[[navbar.links]]
+url = "/"
+title = "Home"
 
-[claims]
-Fast = "By leveraging advanced rendering technology, Static.js delivers pages faster than any other framework."
-Flexible = "Static.js is carefully designed to integrate seamlessly with any front- or backend tech stack."
-Portable = "By carefully adhering to W3C standards you can be confident that your project made with Static.js will work the same in any browser."
+[[navbar.links]]
+url = "/about/"
+title = "About"
+
+[[claims]]
+title = "Fast"
+description = "By leveraging advanced rendering technology, Static.js delivers pages faster than any other framework."
+
+[[claims]]
+title = "Flexible"
+description = "Static.js is carefully designed to integrate seamlessly with any front- or backend tech stack."
+
+[[claims]]
+title = "Portable"
+description = "By carefully adhering to W3C standards you can be confident that your project made with Static.js will work the same in any browser."

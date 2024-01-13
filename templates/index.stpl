@@ -1,8 +1,12 @@
 <html lang="en-US">
     <head>
         <% include!("./meta.stpl"); %>
+        <link href="./output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.css"
+    integrity="sha512-LaxQmGd9k/pW51CsEy2nLIlbUXCgsyvUEVT5fSguN2b2OBwHjMi2aiUdEEXSMg8Jvy+bCB01as61aNrHnL2DYQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
-    <body>
+    <body class="bg-neutral-950 font-fira">
         <% include!("./navbar.stpl"); %>
           <section class="mb-24 mx-auto max-w-screen-xl">
     <div class="py-8 px-4 text-center lg:py-16">
@@ -35,10 +39,10 @@
       <h1 class="text-2xl font-bold text-white">What makes Static.js Special?</h1>
     </div>
     <div class="grid grid-flow-col gap-6">
-        <% for (k, v) in &claims { %>
+        <% for claim in &claims { %>
 <div class="grow h-full border p-6 rounded-lg shadow bg-neutral-950 border-gray-700 hover:bg-neutral-900">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= k %></h5>
-          <p class="font-normal text-gray-700 dark:text-gray-400"><%= v %></p>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= claim.title %></h5>
+          <p class="font-normal text-gray-700 dark:text-gray-400"><%= claim.description %></p>
       </div>
         <% } %>
     </div>

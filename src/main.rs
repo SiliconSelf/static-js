@@ -1,8 +1,8 @@
 #![doc = include_str!("../README.md")]
 
-use std::{collections::HashMap, time::{SystemTime, Duration}, io::Write, ffi::OsStr};
+use std::{time::{SystemTime, Duration}, io::Write, ffi::OsStr};
 
-use log::{error, info};
+use log::{info};
 use sailfish::TemplateOnce;
 use serde::Deserialize;
 
@@ -11,7 +11,19 @@ use serde::Deserialize;
 struct IndexTemplate {
     meta: MetaTemplate,
     navbar: NavbarTemplate,
-    claims: HashMap<String, String>
+    claims: Vec<Claim>
+}
+
+#[derive(Deserialize)]
+struct Claim {
+    title: String,
+    description: String
+}
+
+#[derive(Deserialize)]
+struct Url {
+    url: String,
+    title: String
 }
 
 #[derive(Deserialize)]
@@ -22,7 +34,7 @@ struct MetaTemplate {
 
 #[derive(Deserialize)]
 struct NavbarTemplate {
-    links: HashMap<String, String>
+    links: Vec<Url>
 }
 
 #[derive(Deserialize)]
@@ -46,8 +58,8 @@ async fn main() {
         tokio::task::spawn_blocking(move || {
             // Read TOML file from disk
             let data = std::fs::read_to_string(&path).expect("Failed to read file");
-            // Render appropriate template
             let ctx: IndexTemplate = toml::from_str(&data).expect("Failed to deserialize");
+            // Render appropriate template
             let start_time = SystemTime::now();
             let render = ctx.render_once().expect("Failed to render");
             let duration = start_time.elapsed().expect("Failed to time");
