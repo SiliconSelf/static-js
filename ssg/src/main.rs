@@ -2,7 +2,7 @@
 
 use std::{time::{SystemTime, Duration}, io::Write, ffi::OsStr};
 
-use log::info;
+use log::{error, info, warn};
 use sailfish::TemplateOnce;
 
 use crate::templates::index::IndexTemplate;
@@ -20,15 +20,19 @@ async fn main() {
         if path.extension() != Some(OsStr::new("toml")) { continue; };
         let tx = tx.clone();
         tokio::task::spawn_blocking(move || {
+            let path_string = path.to_string_lossy();
             // Read TOML file from disk
-            let data = std::fs::read_to_string(&path).expect("Failed to read file");
-            let ctx: IndexTemplate = toml::from_str(&data).expect("Failed to deserialize");
+            let Ok(data) = std::fs::read_to_string(&path) else { error!("Failed to read file for {path_string}!"); return; };
+            let Ok(ctx) = toml::from_str::<IndexTemplate>(&data) else { error!("Failed to deserialize {path_string}!"); return; };
             // Render appropriate template
             let start_time = SystemTime::now();
-            let render = ctx.render_once().expect("Failed to render");
-            let duration = start_time.elapsed().expect("Failed to time");
-            let render = render.replace("{GENERATION_TIME}", &format!("{}", duration.as_nanos()));
-            info!("Rendered {} in {} nanoseconds", entry.path().to_string_lossy(), duration.as_nanos());
+            let Ok(mut render) = ctx.render_once() else { error!("Failed to render template for {path_string}!"); return; };
+            if let Ok(duration) = start_time.elapsed() {
+                render = render.replace("{GENERATION_TIME}", &format!("{}", duration.as_nanos()));
+                info!("Rendered {} in {} nanoseconds", entry.path().to_string_lossy(), duration.as_nanos());
+            } else {
+                warn!("Template for {path_string} was successfully rendered, but duration failed to calculate!");
+            }
             // Return render to main thread
             tx.send((path, render)).expect("Failed to send");
         });
