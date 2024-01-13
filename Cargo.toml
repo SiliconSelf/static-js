@@ -48,3 +48,6 @@ wildcard_dependencies = "warn"
 
 [lints]
 workspace = true
+
+[dependencies]
+sailfish = "0.8.3"
