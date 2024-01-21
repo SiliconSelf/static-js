@@ -28,8 +28,9 @@ async fn main() {
             let start_time = SystemTime::now();
             let Ok(mut render) = ctx.render_once() else { error!("Failed to render template for {path_string}!"); return; };
             if let Ok(duration) = start_time.elapsed() {
-                render = render.replace("{GENERATION_TIME}", &format!("{}", duration.as_nanos()));
-                info!("Rendered {} in {} nanoseconds", entry.path().to_string_lossy(), duration.as_nanos());
+                let micros = duration.as_micros();
+                render = render.replace("{GENERATION_TIME}", &format!("{micros}"));
+                info!("Rendered {} in {} microseconds", entry.path().to_string_lossy(), micros);
             } else {
                 warn!("Template for {path_string} was successfully rendered, but duration failed to calculate!");
             }
