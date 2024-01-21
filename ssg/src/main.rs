@@ -1,6 +1,6 @@
 #![doc = include_str!("../../README.md")]
 
-use std::{time::{SystemTime, Duration}, io::Write, ffi::OsStr};
+use std::{time::{SystemTime, Duration}, io::Write, ffi::OsStr, path::PathBuf};
 
 use log::{error, info, warn};
 use sailfish::TemplateOnce;
@@ -38,12 +38,18 @@ async fn main() {
             tx.send((path, render)).expect("Failed to send");
         });
     }
+    // FIXME: Should I really be using an explicit drop here?
     drop(tx);
     loop {
         match rx.try_recv() {
-            Ok((mut path, render)) => {
-                path.set_extension("html");
-                let mut output = std::fs::File::create(path).expect("Failed to open file");
+            Ok((path, render)) => {
+                let mut output_path = PathBuf::new();
+                output_path.push("public/");
+                output_path.push(path);
+                output_path.set_extension("html");
+                let parent = output_path.parent().expect("Output path must have a parent");
+                std::fs::create_dir_all(parent).expect("Cannot create directory to write to");
+                let mut output = std::fs::File::create(output_path).expect("Failed to open file");
                 output.write_all(render.as_bytes()).expect("Failed to write file");
             },
             Err(tokio::sync::mpsc::error::TryRecvError::Empty) => {
