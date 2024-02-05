@@ -59,6 +59,6 @@ log = "0.4.20"
 sailfish = "0.8.3"
 serde = { version = "1.0.196", features = ["derive"] }
 simple_logger = "4.3.3"
-tokio = { version = "1.35.1", features = ["full"] }
+tokio = { version = "1.36.0", features = ["full"] }
 toml = "0.8.8"
 walkdir = "2.4.0"
