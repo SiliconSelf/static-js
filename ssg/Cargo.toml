@@ -60,5 +60,5 @@ sailfish = "0.8.3"
 serde = { version = "1.0.203", features = ["derive"] }
 simple_logger = "5.0.0"
 tokio = { version = "1.38.0", features = ["full"] }
-toml = "0.8.13"
+toml = "0.8.14"
 walkdir = "2.5.0"
