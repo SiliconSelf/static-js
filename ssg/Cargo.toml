@@ -55,7 +55,7 @@ wildcard_dependencies = "warn"
 workspace = true
 
 [dependencies]
-log = "0.4.21"
+log = "0.4.22"
 sailfish = "0.8.3"
 serde = { version = "1.0.204", features = ["derive"] }
 simple_logger = "5.0.0"
